@@ -4,6 +4,8 @@ const express = require("express");
 const app = express();
 /* Nastavení portu, na němž bude spuštěný server naslouchat */
 const port = 3000;
+
+app.use(express.static("public"));
 /* Spuštění webového serveru */
 app.listen(port, () => {
 console.log(`Server naslouchá na portu ${port}`);
