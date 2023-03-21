@@ -1,13 +1,7 @@
-/* Připojení modulu frameworku Express (https://expressjs.com/) */
 const express = require("express");
-
- /* Připojení externího modulu body-parser (https://www.npmjs.com/package/body-parser) -middleware pro parsování těla požadavku */
+const csvtojson = require('csvtojson');
 const bodyParser = require("body-parser"); 
-
-/* Připojení externího modulu moment (https://momentjs.com/) -knihovna pro formátování datových a časových údajů */
 const moment = require("moment"); 
-
-/* Připojení vestavěných modulů fs (práce se soubory) a path (cesty v adresářové struktuře) */
 const fs = require("fs");
 const path = require("path");
 
@@ -46,12 +40,16 @@ app.post("/savedata", urlencodedParser, (req, res) => {
 });
 
 app.get('/todolist', (req,res) => {
-fs.readFile(path.join(__dirname, "data/ukoly.csv"), (err, data) => {
-res.send(data);
-});
-});
+csvtojson({headers: ['ukol','predmet','zadani','odevzdani']})
+.fromFile(path.join(__dirname, "data/ukoly.csv"))
+.then( data =>{ 
+    res.render('index', {nadpis: "Seznam úkolů", ukoly: data});
+})
+.catch( error => { 
+console.log(error);
+})});
 
-app.get('/pokus', (req,res) => {
+app.get('/about', (req,res) => {
 res.render('index', {nadpis: 'Seznam úkolů'});
 });
 

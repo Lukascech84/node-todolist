@@ -1,6 +1,28 @@
 doctype html
 html
     head
-        title Pokus
+        title ToDoList
+        link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css")
+        script(src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js") 
     body
-        h1 #{nadpis}
+        header.jumbotron-fluid.bg-success.p-3
+            h1.text-center.text-white #{nadpis}
+        main.container
+            table(class="table table-striped")
+                thead
+                    tr.bg-dark.text-white
+                        th Zadání úkolu 
+                        th Předmět 
+                        th Datum Zadání
+                        th Datum odevzdání
+                tbody 
+                    each ukol in ukoly
+                        tr 
+                            td #{ukol.ukol}
+                            td #{ukol.predmet}
+                            td #{ukol.zadani}
+                            td #{ukol.odevzdani}
+        footer.text-center.bg-dark.text-white.p-3.fixed-bottom
+            h1 Lukáš Čech, IT2, 2023
+            a(href="/").p-3.text-white ZPĚT
+            a(href="/about").p-3.text-white O APLIKACI
